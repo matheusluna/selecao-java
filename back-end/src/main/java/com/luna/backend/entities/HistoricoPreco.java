@@ -11,6 +11,7 @@ public class HistoricoPreco {
     private Double valorVenda;
     private Double valorCompra;
     private String unidadeMedida;
+    private Long data;
     @ManyToOne
     @JoinColumn(name = "produto_id")
     private Produto produto;
@@ -56,6 +57,14 @@ public class HistoricoPreco {
         this.unidadeMedida = unidadeMedida;
     }
 
+    public Long getData() {
+        return data;
+    }
+
+    public void setData(Long data) {
+        this.data = data;
+    }
+
     public Produto getProduto() {
         return produto;
     }
@@ -80,35 +89,4 @@ public class HistoricoPreco {
         this.posto = posto;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        HistoricoPreco that = (HistoricoPreco) o;
-        return Objects.equals(historicoId, that.historicoId) &&
-                Objects.equals(valorVenda, that.valorVenda) &&
-                Objects.equals(valorCompra, that.valorCompra) &&
-                Objects.equals(unidadeMedida, that.unidadeMedida) &&
-                Objects.equals(produto, that.produto) &&
-                Objects.equals(distribuidora, that.distribuidora) &&
-                Objects.equals(posto, that.posto);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(historicoId, valorVenda, valorCompra, unidadeMedida, produto, distribuidora, posto);
-    }
-
-    @Override
-    public String toString() {
-        return "HistoricoPreco{" +
-                "historicoId=" + historicoId +
-                ", valorVenda=" + valorVenda +
-                ", valorCompra=" + valorCompra +
-                ", unidadeMedida='" + unidadeMedida + '\'' +
-                ", produto=" + produto +
-                ", distribuidora=" + distribuidora +
-                ", posto=" + posto +
-                '}';
-    }
 }

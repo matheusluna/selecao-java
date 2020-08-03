@@ -18,130 +18,37 @@ public class CSVHelper {
     static String[] HEADERs = {"Região - Sigla", "Estado - Sigla", "Município", "Revenda", "CNPJ da Revenda", "Produto", "Data da Coleta", "Valor de Venda", "Valor de Compra", "Unidade de Medida", "Bandeira"};
 
     public static boolean hasCSVFormat(MultipartFile file){
-        return (!TYPE.equals(file.getContentType())) ? false : true;
+        return TYPE.equals(file.getContentType());
     }
 
-    public static List<Regiao> csvToRegiao(InputStream is){
+    public static List<HistoricoCSV> csvToHistorico(InputStream is){
         try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
              CSVParser csvParser = new CSVParser(fileReader,
-                     CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim())) {
+                     CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim());) {
 
-            List<Regiao> regioes = new ArrayList<>();
+            List<HistoricoCSV> historicoCSVS = new ArrayList<HistoricoCSV>();
 
             Iterable<CSVRecord> csvRecords = csvParser.getRecords();
 
             for (CSVRecord csvRecord : csvRecords) {
-                int cont = 0;
-                for (int i = 0; i < regioes.size(); i++) {
-                    if(regioes.get(i).getSigla().equals(csvRecord.get(HEADERs[0]))){
-                        cont++;
-                    }
-                }
-                if (cont == 0){
-                    Regiao regiao = new Regiao();
-                    regiao.setSigla(csvRecord.get(HEADERs[0]));
-                    regioes.add(regiao);
-                }
+                HistoricoCSV historicoCSV = new HistoricoCSV(
+                        csvRecord.get(HEADERs[0]),
+                        csvRecord.get(HEADERs[1]),
+                        csvRecord.get(HEADERs[2]),
+                        csvRecord.get(HEADERs[3]),
+                        csvRecord.get(HEADERs[4]),
+                        csvRecord.get(HEADERs[5]),
+                        csvRecord.get(HEADERs[6]),
+                        csvRecord.get(HEADERs[7]),
+                        csvRecord.get(HEADERs[8]),
+                        csvRecord.get(HEADERs[9]),
+                        csvRecord.get(HEADERs[10])
+                );
+
+                historicoCSVS.add(historicoCSV);
             }
 
-            return regioes;
-        } catch (IOException e) {
-            throw new RuntimeException("fail to parse CSV file: " + e.getMessage());
-        }
-    }
-
-    public static List<Estado> csvToEstado(InputStream is){
-        try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
-             CSVParser csvParser = new CSVParser(fileReader,
-                     CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim())) {
-
-            List<Estado> estados = new ArrayList<>();
-
-            Iterable<CSVRecord> csvRecords = csvParser.getRecords();
-
-            for (CSVRecord csvRecord : csvRecords) {
-                int cont = 0;
-                for (int i = 0; i < estados.size(); i++) {
-                    if(estados.get(i).getSigla().equals(csvRecord.get(HEADERs[1]))){
-                        cont++;
-                    }
-                }
-                if (cont == 0){
-                    Estado estado = new Estado();
-                    estado.setSigla(csvRecord.get(HEADERs[1]));
-                    Regiao regiao = new Regiao();
-                    regiao.setSigla(csvRecord.get(HEADERs[0]));
-                    estado.setRegiao(regiao);
-                    estados.add(estado);
-                }
-            }
-
-            return estados;
-        } catch (IOException e) {
-            throw new RuntimeException("fail to parse CSV file: " + e.getMessage());
-        }
-    }
-
-    public static List<Municipio> csvToMunicipio(InputStream is){
-        try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
-             CSVParser csvParser = new CSVParser(fileReader,
-                     CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim())) {
-
-            List<Municipio> municipios = new ArrayList<>();
-
-            Iterable<CSVRecord> csvRecords = csvParser.getRecords();
-
-            for (CSVRecord csvRecord : csvRecords) {
-                int cont = 0;
-                for (int i = 0; i < municipios.size(); i++) {
-                    if(municipios.get(i).getNome().equals(csvRecord.get(HEADERs[2]))){
-                        cont++;
-                    }
-                }
-                if (cont == 0){
-                    Municipio municipio = new Municipio();
-                    municipio.setNome(csvRecord.get(HEADERs[2]));
-                    Estado estado = new Estado();
-                    estado.setSigla(csvRecord.get(HEADERs[1]));
-                    municipio.setEstado(estado);
-                    municipios.add(municipio);
-                }
-            }
-
-            return municipios;
-        } catch (IOException e) {
-            throw new RuntimeException("fail to parse CSV file: " + e.getMessage());
-        }
-    }
-
-    public static List<Posto> csvToPosto(InputStream is){
-        try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
-             CSVParser csvParser = new CSVParser(fileReader,
-                     CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim())) {
-
-            List<Posto> postos = new ArrayList<>();
-
-            Iterable<CSVRecord> csvRecords = csvParser.getRecords();
-
-            for (CSVRecord csvRecord : csvRecords) {
-                Posto posto = new Posto();
-                int cont = 0;
-                for (int i = 0; i < postos.size(); i++) {
-                    if(postos.get(i).getNome().equals(csvRecord.get(HEADERs[3]))){
-                        cont++;
-                    }
-                }
-                if (cont == 0){
-                    posto.setCnpj(csvRecord.get(HEADERs[4]));
-                    posto.setNome(csvRecord.get(HEADERs[3]));
-                    Municipio municipio = new Municipio();
-                    municipio.setNome(csvRecord.get(HEADERs[2]));
-                    posto.setMunicipio(municipio);
-                    postos.add(posto);
-                }
-            }
-
-            return postos;
+            return historicoCSVS;
         } catch (IOException e) {
             throw new RuntimeException("fail to parse CSV file: " + e.getMessage());
         }
