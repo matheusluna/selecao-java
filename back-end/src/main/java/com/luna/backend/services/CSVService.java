@@ -14,19 +14,19 @@ public class CSVService {
 
     private List<Regiao> getRegioes(InputStream is){
         List<HistoricoCSV> historicoCSVS = CSVHelper.csvToHistorico(is);
-        List<Regiao> regiaos = new ArrayList<>();
+        List<Regiao> regioes = new ArrayList<>();
         for(HistoricoCSV historicoCSV : historicoCSVS){
             int cont = 0;
-            for (int i = 0; i < regiaos.size(); i++) {
-                if (historicoCSV.getRegiao().equals(regiaos.get(i).getSigla())) cont++;
+            for (int i = 0; i < regioes.size(); i++) {
+                if (historicoCSV.getRegiao().equals(regioes.get(i).getSigla())) cont++;
             }
             if (cont == 0){
                 Regiao regiao = new Regiao();
                 regiao.setSigla(historicoCSV.getRegiao());
-                regiaos.add(regiao);
+                regioes.add(regiao);
             }
         }
-        return regiaos;
+        return regioes;
     }
 
     private List<Estado> getEstados(InputStream is){
@@ -73,7 +73,7 @@ public class CSVService {
         for(HistoricoCSV historicoCSV : historicoCSVS){
             int cont = 0;
             for (int i = 0; i < postos.size(); i++) {
-                if (historicoCSV.getPosto().equals(postos.get(i).getNome())) cont++;
+                if (historicoCSV.getPostoCNPJ().equals(postos.get(i).getCnpj())) cont++;
             }
             if (cont == 0){
                 Municipio municipio = new Municipio();
