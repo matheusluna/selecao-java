@@ -12,5 +12,4 @@ import java.util.Optional;
 public interface HistoricoPrecoRepository extends CrudRepository<HistoricoPreco, Long> {
     Optional<List<HistoricoPreco>> findByPosto(Posto posto);
     Optional<List<HistoricoPreco>> findByDistribuidora(Distribuidora distribuidora);
-    Optional<List<HistoricoPreco>> findByProduto(Produto produto);
-}
+    Optional<List<HistoricoPreco>> findByProduto(Produto produto);}
