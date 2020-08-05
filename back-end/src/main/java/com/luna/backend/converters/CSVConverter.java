@@ -8,8 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CSVConverter {
-    public static List<Regiao> getRegioes(InputStream is){
-        List<HistoricoCSV> historicoCSVS = CSVHelper.csvToHistorico(is);
+    public static List<Regiao> getRegioes(List<HistoricoCSV> historicoCSVS){
         List<Regiao> regioes = new ArrayList<>();
         for(HistoricoCSV historicoCSV : historicoCSVS){
             int cont = 0;
@@ -25,8 +24,7 @@ public class CSVConverter {
         return regioes;
     }
 
-    public static List<Estado> getEstados(InputStream is){
-        List<HistoricoCSV> historicoCSVS = CSVHelper.csvToHistorico(is);
+    public static List<Estado> getEstados(List<HistoricoCSV> historicoCSVS){
         List<Estado> estados = new ArrayList<>();
         for(HistoricoCSV historicoCSV : historicoCSVS){
             int cont = 0;
@@ -44,8 +42,7 @@ public class CSVConverter {
         }
         return estados;
     }
-    public static List<Municipio> getMunicipios(InputStream is){
-        List<HistoricoCSV> historicoCSVS = CSVHelper.csvToHistorico(is);
+    public static List<Municipio> getMunicipios(List<HistoricoCSV> historicoCSVS){
         List<Municipio> municipios = new ArrayList<>();
         for(HistoricoCSV historicoCSV : historicoCSVS){
             int cont = 0;
@@ -63,8 +60,7 @@ public class CSVConverter {
         }
         return municipios;
     }
-    public static List<Posto> getPostos(InputStream is){
-        List<HistoricoCSV> historicoCSVS = CSVHelper.csvToHistorico(is);
+    public static List<Posto> getPostos(List<HistoricoCSV> historicoCSVS){
         List<Posto> postos = new ArrayList<>();
         for(HistoricoCSV historicoCSV : historicoCSVS){
             int cont = 0;
@@ -83,8 +79,7 @@ public class CSVConverter {
         }
         return postos;
     }
-    public static List<Distribuidora> getDistribuidoras(InputStream is){
-        List<HistoricoCSV> historicoCSVS = CSVHelper.csvToHistorico(is);
+    public static List<Distribuidora> getDistribuidoras(List<HistoricoCSV> historicoCSVS){
         List<Distribuidora> distribuidoras = new ArrayList<>();
         for(HistoricoCSV historicoCSV : historicoCSVS){
             int cont = 0;
@@ -99,8 +94,7 @@ public class CSVConverter {
         }
         return distribuidoras;
     }
-    public static List<Produto> getProdutos(InputStream is){
-        List<HistoricoCSV> historicoCSVS = CSVHelper.csvToHistorico(is);
+    public static List<Produto> getProdutos(List<HistoricoCSV> historicoCSVS){
         List<Produto> produtos = new ArrayList<>();
         for(HistoricoCSV historicoCSV : historicoCSVS){
             int cont = 0;
@@ -116,8 +110,7 @@ public class CSVConverter {
         return produtos;
     }
 
-    public static List<HistoricoPreco> getHistoricos(InputStream is){
-        List<HistoricoCSV> historicoCSVS = CSVHelper.csvToHistorico(is);
+    public static List<HistoricoPreco> getHistoricos(List<HistoricoCSV> historicoCSVS){
         List<HistoricoPreco> historicoPrecos = new ArrayList<>();
         for(HistoricoCSV historicoCSV : historicoCSVS){
             HistoricoPreco historicoPreco = new HistoricoPreco();

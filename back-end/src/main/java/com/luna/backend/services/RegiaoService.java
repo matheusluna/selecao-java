@@ -5,6 +5,7 @@ import com.luna.backend.repositories.RegiaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -14,6 +15,10 @@ public class RegiaoService {
 
     public void create(Regiao regiao){
         this.regiaoRepository.save(regiao);
+    }
+
+    public void createAll(List<Regiao> regioes){
+        this.regiaoRepository.saveAll(regioes);
     }
 
     public Optional<Regiao> read(String sigla){
